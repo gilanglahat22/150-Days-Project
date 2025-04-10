@@ -17,15 +17,15 @@ const CalendarPage: React.FC = () => {
       <Header username="Delista" />
       
       <div className="mb-4">
-        <h1 className="text-2xl font-bold text-gray-800">Calendar</h1>
-        <p className="text-gray-500 text-sm mt-1">Manage your schedule and tasks</p>
+        <h1 className="text-2xl font-bold text-gray-800 dark:text-white">Calendar</h1>
+        <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Manage your schedule and tasks</p>
       </div>
       
       <div className="space-y-6">
-        <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm">
+        <div className="bg-gray-800 dark:bg-gray-800 rounded-lg p-4 md:p-6 shadow-sm text-white">
           <Calendar />
         </div>
-        <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm">
+        <div className="bg-gray-800 dark:bg-gray-800 rounded-lg p-4 md:p-6 shadow-sm text-white">
           <TodoList initialTodos={initialTodos} />
         </div>
       </div>

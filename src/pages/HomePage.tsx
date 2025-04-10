@@ -69,15 +69,15 @@ const HomePage: React.FC = () => {
       <Header username="Delista" />
       
       <div className="mb-4">
-        <h1 className="text-2xl font-bold text-gray-800">Dashboard</h1>
-        <p className="text-gray-500 text-sm mt-1">Track your daily activity and progress</p>
+        <h1 className="text-2xl font-bold text-gray-800 dark:text-white">Dashboard</h1>
+        <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Track your daily activity and progress</p>
       </div>
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
         <div className="lg:col-span-2">
           <WelcomeCard username="Delista" temperature="+25°C" weather="Fuzzy cloudy weather" />
           
-          <h2 className="text-xl font-semibold my-4">Scarlett's Home</h2>
+          <h2 className="text-xl font-semibold my-4 text-gray-800 dark:text-white">Scarlett's Home</h2>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6">
             <StatCard 
@@ -125,10 +125,10 @@ const HomePage: React.FC = () => {
             </div>
             
             <div className="md:col-span-2">
-              <div className="bg-white p-4 rounded-xl shadow-sm">
+              <div className="bg-gray-800 dark:bg-gray-800 p-4 rounded-xl shadow-sm">
                 <div className="flex justify-between items-center mb-4">
-                  <h3 className="font-semibold">Progress</h3>
-                  <select className="text-xs text-gray-500 border border-gray-200 rounded-md px-2 py-1">
+                  <h3 className="font-semibold text-white">Progress</h3>
+                  <select className="text-xs text-gray-300 border border-gray-700 rounded-md px-2 py-1 bg-gray-700">
                     <option>Weekly</option>
                     <option>Monthly</option>
                   </select>
@@ -140,8 +140,8 @@ const HomePage: React.FC = () => {
                   {activities.map((activity, idx) => (
                     <div key={idx} className="flex items-center">
                       <div className="w-3 h-3 rounded-full mr-2" style={{ backgroundColor: activity.color }}></div>
-                      <span className="text-sm text-gray-700">{activity.name}</span>
-                      <span className="ml-auto text-sm font-medium">{activity.hours} hrs</span>
+                      <span className="text-sm text-gray-300">{activity.name}</span>
+                      <span className="ml-auto text-sm font-medium text-gray-300">{activity.hours} hrs</span>
                     </div>
                   ))}
                 </div>

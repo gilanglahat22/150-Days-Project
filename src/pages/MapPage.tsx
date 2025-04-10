@@ -23,11 +23,11 @@ const MapPage: React.FC = () => {
       <Header username="Delista" />
       
       <div className="mb-4">
-        <h1 className="text-2xl font-bold text-gray-800">Location Sharing</h1>
-        <p className="text-gray-500 text-sm mt-1">View and share your current location</p>
+        <h1 className="text-2xl font-bold text-gray-800 dark:text-white">Location Sharing</h1>
+        <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">View and share your current location</p>
       </div>
       
-      <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm h-[500px]">
+      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden" style={{ height: 'calc(100vh - 240px)', minHeight: '400px', maxHeight: '600px' }}>
         <MapView 
           locations={locations}
           selectedLocation={selectedLocation}

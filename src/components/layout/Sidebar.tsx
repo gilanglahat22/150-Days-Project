@@ -14,7 +14,7 @@ const Sidebar: React.FC<SidebarProps> = ({ mobile = false, onClose }) => {
   };
   
   return (
-    <div className={`h-screen flex-shrink-0 ${mobile ? 'w-64' : 'w-16 md:w-24'} bg-primary ${mobile ? '' : 'rounded-r-3xl'} flex flex-col items-center py-6`}>
+    <div className={`h-screen flex-shrink-0 ${mobile ? 'w-64' : 'w-16 md:w-24'} bg-primary dark:bg-gray-800 ${mobile ? '' : 'rounded-r-3xl'} flex flex-col items-center py-6 transition-colors duration-200`}>
       {mobile && (
         <button 
           onClick={onClose}
@@ -28,8 +28,8 @@ const Sidebar: React.FC<SidebarProps> = ({ mobile = false, onClose }) => {
       
       <div className="mb-8">
         <Link to="/" className="text-white font-bold text-3xl">
-          <div className="w-14 h-14 bg-white rounded-xl flex items-center justify-center">
-            <span className="text-primary">F</span>
+          <div className="w-14 h-14 bg-white dark:bg-gray-700 rounded-xl flex items-center justify-center transition-colors">
+            <span className="text-primary dark:text-primary-light">F</span>
           </div>
         </Link>
       </div>
@@ -37,7 +37,7 @@ const Sidebar: React.FC<SidebarProps> = ({ mobile = false, onClose }) => {
       <nav className="flex flex-col items-center space-y-8 flex-1">
         <Link 
           to="/" 
-          className={`p-3 rounded-xl ${isActive('/') ? 'bg-white text-primary' : 'text-white'} flex items-center`}
+          className={`p-3 rounded-xl ${isActive('/') ? 'bg-white dark:bg-gray-700 text-primary dark:text-primary-light' : 'text-white'} flex items-center transition-colors`}
           onClick={mobile ? onClose : undefined}
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -48,7 +48,7 @@ const Sidebar: React.FC<SidebarProps> = ({ mobile = false, onClose }) => {
         
         <Link 
           to="/calendar" 
-          className={`p-3 rounded-xl ${isActive('/calendar') ? 'bg-white text-primary' : 'text-white'} flex items-center`}
+          className={`p-3 rounded-xl ${isActive('/calendar') ? 'bg-white dark:bg-gray-700 text-primary dark:text-primary-light' : 'text-white'} flex items-center transition-colors`}
           onClick={mobile ? onClose : undefined}
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -59,7 +59,7 @@ const Sidebar: React.FC<SidebarProps> = ({ mobile = false, onClose }) => {
         
         <Link 
           to="/gallery" 
-          className={`p-3 rounded-xl ${isActive('/gallery') ? 'bg-white text-primary' : 'text-white'} flex items-center`}
+          className={`p-3 rounded-xl ${isActive('/gallery') ? 'bg-white dark:bg-gray-700 text-primary dark:text-primary-light' : 'text-white'} flex items-center transition-colors`}
           onClick={mobile ? onClose : undefined}
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -70,7 +70,7 @@ const Sidebar: React.FC<SidebarProps> = ({ mobile = false, onClose }) => {
         
         <Link 
           to="/map" 
-          className={`p-3 rounded-xl ${isActive('/map') ? 'bg-white text-primary' : 'text-white'} flex items-center`}
+          className={`p-3 rounded-xl ${isActive('/map') ? 'bg-white dark:bg-gray-700 text-primary dark:text-primary-light' : 'text-white'} flex items-center transition-colors`}
           onClick={mobile ? onClose : undefined}
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -82,7 +82,7 @@ const Sidebar: React.FC<SidebarProps> = ({ mobile = false, onClose }) => {
         
         <Link 
           to="/profile" 
-          className={`p-3 rounded-xl ${isActive('/profile') ? 'bg-white text-primary' : 'text-white'} flex items-center`}
+          className={`p-3 rounded-xl ${isActive('/profile') ? 'bg-white dark:bg-gray-700 text-primary dark:text-primary-light' : 'text-white'} flex items-center transition-colors`}
           onClick={mobile ? onClose : undefined}
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -95,7 +95,7 @@ const Sidebar: React.FC<SidebarProps> = ({ mobile = false, onClose }) => {
       <div className="mt-auto">
         <Link 
           to="/logout" 
-          className="p-3 rounded-xl text-white flex items-center"
+          className="p-3 rounded-xl text-white flex items-center hover:bg-red-500/20 transition-colors"
           onClick={mobile ? onClose : undefined}
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
