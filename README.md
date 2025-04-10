@@ -60,3 +60,7 @@ Navigate to the different sections using the sidebar:
 - Gallery: Photo gallery
 - Map: Location sharing feature
 - Profile: User profile management
+
+![Screenshot 2025-04-10 at 23 43 56](https://github.com/user-attachments/assets/b65e9028-79c3-4d59-8554-39c29fcb807a)
+![Screenshot 2025-04-10 at 23 44 06](https://github.com/user-attachments/assets/94bb3452-a7cc-4def-94b0-19b7b90687fe)
+
