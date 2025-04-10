@@ -20,12 +20,16 @@ const MapPage: React.FC = () => {
 
   return (
     <Layout pageTitle="sharelok">
-      <Header username="Delista" />
-      <MapView 
-        locations={locations}
-        selectedLocation={selectedLocation}
-        onSelectLocation={handleSelectLocation}
-      />
+      <div className="flex flex-col h-full">
+        <Header username="Delista" />
+        <div className="flex-1 w-full mt-4">
+          <MapView 
+            locations={locations}
+            selectedLocation={selectedLocation}
+            onSelectLocation={handleSelectLocation}
+          />
+        </div>
+      </div>
     </Layout>
   );
 };

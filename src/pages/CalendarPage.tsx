@@ -14,14 +14,16 @@ const CalendarPage: React.FC = () => {
 
   return (
     <Layout pageTitle="Calendar">
-      <Header username="Delista" />
+      <div className="max-w-6xl mx-auto">
+        <Header username="Delista" />
 
-      <div className="grid grid-cols-2 gap-6">
-        <div className="col-span-2">
-          <Calendar />
-        </div>
-        <div className="col-span-2">
-          <TodoList initialTodos={initialTodos} />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+          <div className="col-span-1 md:col-span-2">
+            <Calendar />
+          </div>
+          <div className="col-span-1 md:col-span-2 lg:col-span-1">
+            <TodoList initialTodos={initialTodos} />
+          </div>
         </div>
       </div>
     </Layout>

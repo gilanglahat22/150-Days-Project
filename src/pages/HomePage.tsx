@@ -68,13 +68,13 @@ const HomePage: React.FC = () => {
     <Layout>
       <Header username="Delista" />
       
-      <div className="grid grid-cols-3 gap-6">
-        <div className="col-span-2">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
+        <div className="lg:col-span-2">
           <WelcomeCard username="Delista" temperature="+25°C" weather="Fuzzy cloudy weather" />
           
-          <h2 className="text-xl font-semibold mb-4">Scarlett's Home</h2>
+          <h2 className="text-xl font-semibold my-4">Scarlett's Home</h2>
           
-          <div className="grid grid-cols-3 gap-4 mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6">
             <StatCard 
               title="Steps" 
               value="2,500" 
@@ -114,12 +114,12 @@ const HomePage: React.FC = () => {
             />
           </div>
           
-          <div className="grid grid-cols-3 gap-6">
-            <div className="col-span-1">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+            <div className="md:col-span-1">
               <ActivityList activities={userActivities} />
             </div>
             
-            <div className="col-span-2">
+            <div className="md:col-span-2">
               <div className="bg-white p-4 rounded-xl shadow-sm">
                 <div className="flex justify-between items-center mb-4">
                   <h3 className="font-semibold">Progress</h3>
@@ -131,7 +131,7 @@ const HomePage: React.FC = () => {
                 
                 <ProgressChart activities={activities} totalHours={40} />
                 
-                <div className="mt-4 grid grid-cols-2 gap-4">
+                <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {activities.map((activity, idx) => (
                     <div key={idx} className="flex items-center">
                       <div className="w-3 h-3 rounded-full mr-2" style={{ backgroundColor: activity.color }}></div>
@@ -145,9 +145,11 @@ const HomePage: React.FC = () => {
           </div>
         </div>
         
-        <div className="col-span-1">
+        <div className="lg:col-span-1">
           <MembersList members={members} />
-          <ActivityChart data={chartData} labels={chartLabels} percentage={73} />
+          <div className="mt-6">
+            <ActivityChart data={chartData} labels={chartLabels} percentage={73} />
+          </div>
         </div>
       </div>
     </Layout>
