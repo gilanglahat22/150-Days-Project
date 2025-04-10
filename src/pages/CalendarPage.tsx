@@ -14,16 +14,19 @@ const CalendarPage: React.FC = () => {
 
   return (
     <Layout pageTitle="Calendar">
-      <div className="max-w-6xl mx-auto px-2 sm:px-4">
-        <Header username="Delista" />
-
-        <div className="space-y-6">
-          <div className="bg-white rounded-lg p-3 sm:p-4 md:p-6 shadow-sm">
-            <Calendar />
-          </div>
-          <div className="bg-white rounded-lg p-3 sm:p-4 md:p-6 shadow-sm">
-            <TodoList initialTodos={initialTodos} />
-          </div>
+      <Header username="Delista" />
+      
+      <div className="mb-4">
+        <h1 className="text-2xl font-bold text-gray-800">Calendar</h1>
+        <p className="text-gray-500 text-sm mt-1">Manage your schedule and tasks</p>
+      </div>
+      
+      <div className="space-y-6">
+        <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm">
+          <Calendar />
+        </div>
+        <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm">
+          <TodoList initialTodos={initialTodos} />
         </div>
       </div>
     </Layout>

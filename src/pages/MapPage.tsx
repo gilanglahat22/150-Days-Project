@@ -19,16 +19,20 @@ const MapPage: React.FC = () => {
   };
 
   return (
-    <Layout pageTitle="sharelok">
-      <div className="flex flex-col h-full">
-        <Header username="Delista" />
-        <div className="flex-1 w-full mt-4">
-          <MapView 
-            locations={locations}
-            selectedLocation={selectedLocation}
-            onSelectLocation={handleSelectLocation}
-          />
-        </div>
+    <Layout pageTitle="Share Location">
+      <Header username="Delista" />
+      
+      <div className="mb-4">
+        <h1 className="text-2xl font-bold text-gray-800">Location Sharing</h1>
+        <p className="text-gray-500 text-sm mt-1">View and share your current location</p>
+      </div>
+      
+      <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm h-[500px]">
+        <MapView 
+          locations={locations}
+          selectedLocation={selectedLocation}
+          onSelectLocation={handleSelectLocation}
+        />
       </div>
     </Layout>
   );

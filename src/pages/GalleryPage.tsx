@@ -5,13 +5,15 @@ import Gallery from '../components/gallery/Gallery';
 
 const GalleryPage: React.FC = () => {
   return (
-    <Layout pageTitle="galeri">
-      <div className="max-w-7xl mx-auto">
-        <Header username="Delista" />
-        <div className="mt-6">
-          <Gallery />
-        </div>
+    <Layout pageTitle="Gallery">
+      <Header username="Delista" />
+      
+      <div className="mb-4">
+        <h1 className="text-2xl font-bold text-gray-800">Photo Gallery</h1>
+        <p className="text-gray-500 text-sm mt-1">View and manage your collection of photos</p>
       </div>
+      
+      <Gallery />
     </Layout>
   );
 };

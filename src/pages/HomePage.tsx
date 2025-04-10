@@ -56,7 +56,7 @@ const HomePage: React.FC = () => {
     { id: '1', name: 'Delista', color: 'bg-primary' },
     { id: '2', name: 'Gilang', color: 'bg-orange-500' },
     { id: '3', name: 'Nicole', color: 'bg-rose-500' },
-    { id: '4', name: 'Esra', color: 'bg-blue-500' },
+    { id: '4', name: 'Ezra', color: 'bg-blue-500' },
     { id: '5', name: 'Mam', color: 'bg-orange-500' },
   ];
 
@@ -65,8 +65,13 @@ const HomePage: React.FC = () => {
   const chartLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
   return (
-    <Layout>
+    <Layout pageTitle="Dashboard">
       <Header username="Delista" />
+      
+      <div className="mb-4">
+        <h1 className="text-2xl font-bold text-gray-800">Dashboard</h1>
+        <p className="text-gray-500 text-sm mt-1">Track your daily activity and progress</p>
+      </div>
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
         <div className="lg:col-span-2">

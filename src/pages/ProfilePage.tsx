@@ -17,13 +17,15 @@ const ProfilePage: React.FC = () => {
   };
 
   return (
-    <Layout pageTitle="profil setting">
-      <div className="max-w-4xl mx-auto">
-        <Header username="Delista" />
-        <div className="mt-6">
-          <ProfileForm initialData={profileData} onSave={handleSaveProfile} />
-        </div>
+    <Layout pageTitle="Profile Settings">
+      <Header username="Delista" />
+      
+      <div className="mb-4">
+        <h1 className="text-2xl font-bold text-gray-800">Profile Settings</h1>
+        <p className="text-gray-500 text-sm mt-1">Manage your account information and preferences</p>
       </div>
+      
+      <ProfileForm initialData={profileData} onSave={handleSaveProfile} />
     </Layout>
   );
 };
