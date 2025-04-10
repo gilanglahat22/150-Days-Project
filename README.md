@@ -1,4 +1,4 @@
-# 150 Days Project - Dashboard UI
+# 150 Days Project
 
 A beautiful dashboard UI built with React, TypeScript, and Tailwind CSS.
 
