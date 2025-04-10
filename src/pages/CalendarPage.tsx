@@ -22,10 +22,10 @@ const CalendarPage: React.FC = () => {
       </div>
       
       <div className="space-y-6">
-        <div className="bg-gray-800 dark:bg-gray-800 rounded-lg p-4 md:p-6 shadow-sm text-white">
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-4 md:p-6 shadow-sm text-gray-800 dark:text-white">
           <Calendar />
         </div>
-        <div className="bg-gray-800 dark:bg-gray-800 rounded-lg p-4 md:p-6 shadow-sm text-white">
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-4 md:p-6 shadow-sm text-gray-800 dark:text-white">
           <TodoList initialTodos={initialTodos} />
         </div>
       </div>
