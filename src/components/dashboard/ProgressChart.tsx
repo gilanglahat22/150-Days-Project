@@ -49,7 +49,7 @@ const ProgressChart: React.FC<ProgressChartProps> = ({ activities, totalHours })
     <div className="relative h-44">
       <Doughnut data={data} options={options} />
       <div className="absolute inset-0 flex items-center justify-center flex-col">
-        <span className="text-2xl font-bold">{totalHours}hrs</span>
+        <span className="text-2xl font-bold text-gray-800 dark:text-white">{totalHours}hrs</span>
       </div>
     </div>
   );

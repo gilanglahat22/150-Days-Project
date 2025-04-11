@@ -84,13 +84,13 @@ const ActivityChart: React.FC<ActivityChartProps> = ({
   };
 
   return (
-    <div className="bg-white p-4 rounded-xl shadow-sm">
+    <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm">
       <div className="flex justify-between items-center mb-4">
         <div>
-          <h3 className="font-semibold text-gray-700">{title}</h3>
-          <div className="text-orange-500 font-semibold">{percentage}% Spending</div>
+          <h3 className="font-semibold text-gray-700 dark:text-white">{title}</h3>
+          <div className="text-orange-500 dark:text-orange-400 font-semibold">{percentage}% Spending</div>
         </div>
-        <select className="text-xs text-gray-500 border border-gray-200 rounded-md px-2 py-1">
+        <select className="text-xs text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-700 rounded-md px-2 py-1 bg-white dark:bg-gray-700">
           <option>Month</option>
           <option>Week</option>
           <option>Year</option>
