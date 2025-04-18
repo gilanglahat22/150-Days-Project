@@ -8,6 +8,14 @@ interface ProfileData {
   language: string;
   timeZone: string;
   email: string;
+  bio: string;
+  birthdate: string;
+  socialLinks: {
+    twitter: string;
+    facebook: string;
+    linkedin: string;
+    github: string;
+  };
 }
 
 interface ProfileFormProps {
@@ -27,14 +35,41 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
     language: initialData.language || '',
     timeZone: initialData.timeZone || '',
     email: initialData.email || 'delei@gmail.com',
+    bio: initialData.bio || '',
+    birthdate: initialData.birthdate || '',
+    socialLinks: initialData.socialLinks || {
+      twitter: '',
+      facebook: '',
+      linkedin: '',
+      github: ''
+    }
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    
+    if (name.includes('.')) {
+      const [parent, child] = name.split('.');
+      setFormData(prev => {
+        // Ensure we're only spreading an object
+        const parentValue = prev[parent as keyof ProfileData];
+        if (parentValue && typeof parentValue === 'object') {
+          return {
+            ...prev,
+            [parent]: {
+              ...parentValue,
+              [child]: value
+            }
+          };
+        }
+        return prev;
+      });
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        [name]: value
+      }));
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -43,36 +78,10 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden">
-      <div className="h-36 sm:h-40 md:h-48 bg-gradient-to-r from-blue-400 to-indigo-500 dark:from-blue-600 dark:to-indigo-700 rounded-t-xl relative overflow-hidden">
-        <div className="absolute inset-0 bg-black opacity-10"></div>
-        <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/20 to-transparent"></div>
-      </div>
-      
-      <div className="px-4 sm:px-6 md:px-8 pb-6">
-        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end -mt-16 mb-6 relative z-10">
-          <div className="flex flex-col sm:flex-row sm:items-center">
-            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-primary dark:bg-primary-light flex items-center justify-center text-white text-2xl font-bold border-4 border-white dark:border-gray-800 shadow-md mx-auto sm:mx-0">
-              {formData.fullName ? formData.fullName.charAt(0) : 'D'}
-            </div>
-            <div className="mt-3 sm:mt-0 sm:ml-4 text-center sm:text-left">
-              <h2 className="text-xl font-semibold text-gray-800 dark:text-white">{formData.fullName || 'Delista'}</h2>
-              <p className="text-gray-500 dark:text-gray-400 text-sm sm:text-base">{formData.email}</p>
-            </div>
-          </div>
-          
-          <button 
-            className="mt-4 sm:mt-0 w-full sm:w-auto px-4 py-2 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white rounded-lg shadow-sm transition-colors flex items-center justify-center gap-2"
-            onClick={handleSubmit}
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-              <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-            </svg>
-            Edit Profile
-          </button>
-        </div>
-        
-        <form onSubmit={handleSubmit} className="mt-6 sm:mt-8">
+    <div>
+      <form onSubmit={handleSubmit} className="space-y-8">
+        <div>
+          <h3 className="text-lg font-medium text-gray-800 dark:text-white mb-4">Personal Information</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
             <div className="col-span-1">
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Full Name</label>
@@ -121,6 +130,38 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
             </div>
             
             <div className="col-span-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Birthdate</label>
+              <input
+                type="date"
+                name="birthdate"
+                value={formData.birthdate}
+                onChange={handleChange}
+                placeholder="Your Birthdate"
+                className="w-full p-2.5 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary-light focus:border-transparent"
+              />
+            </div>
+            
+            <div className="sm:col-span-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Bio</label>
+              <textarea
+                name="bio"
+                value={formData.bio}
+                onChange={handleChange}
+                placeholder="Write a short bio about yourself"
+                rows={4}
+                className="w-full p-2.5 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary-light focus:border-transparent"
+              />
+              <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                Brief description for your profile. URLs are hyperlinked.
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div className="pt-6 border-t border-gray-100 dark:border-gray-700">
+          <h3 className="text-lg font-medium text-gray-800 dark:text-white mb-4">Account Settings</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+            <div className="col-span-1">
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Country</label>
               <div className="relative">
                 <select
@@ -134,6 +175,11 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
                   <option value="uk">United Kingdom</option>
                   <option value="ca">Canada</option>
                   <option value="au">Australia</option>
+                  <option value="de">Germany</option>
+                  <option value="fr">France</option>
+                  <option value="jp">Japan</option>
+                  <option value="in">India</option>
+                  <option value="br">Brazil</option>
                 </select>
                 <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400 dark:text-gray-300" viewBox="0 0 20 20" fill="currentColor">
@@ -157,6 +203,10 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
                   <option value="fr">French</option>
                   <option value="es">Spanish</option>
                   <option value="de">German</option>
+                  <option value="pt">Portuguese</option>
+                  <option value="ru">Russian</option>
+                  <option value="ja">Japanese</option>
+                  <option value="zh">Chinese</option>
                 </select>
                 <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400 dark:text-gray-300" viewBox="0 0 20 20" fill="currentColor">
@@ -179,7 +229,12 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
                   <option value="utc">UTC</option>
                   <option value="est">EST (UTC-5)</option>
                   <option value="cst">CST (UTC-6)</option>
+                  <option value="mst">MST (UTC-7)</option>
                   <option value="pst">PST (UTC-8)</option>
+                  <option value="gmt">GMT (UTC+0)</option>
+                  <option value="cet">CET (UTC+1)</option>
+                  <option value="eet">EET (UTC+2)</option>
+                  <option value="jst">JST (UTC+9)</option>
                 </select>
                 <div className="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-400 dark:text-gray-300" viewBox="0 0 20 20" fill="currentColor">
@@ -188,58 +243,125 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
                 </div>
               </div>
             </div>
+            
+            <div className="col-span-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email Address</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                disabled
+                className="w-full p-2.5 border border-gray-200 dark:border-gray-700 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white rounded-lg cursor-not-allowed"
+              />
+              <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                Email cannot be changed. Go to security tab for email settings.
+              </p>
+            </div>
           </div>
-          
-          <div className="mt-8">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-medium text-gray-800 dark:text-white">My Email Address</h3>
-              <span className="text-xs text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-full">Primary</span>
+        </div>
+        
+        <div className="pt-6 border-t border-gray-100 dark:border-gray-700">
+          <h3 className="text-lg font-medium text-gray-800 dark:text-white mb-4">Social Links</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+            <div className="col-span-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Twitter</label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <svg className="w-5 h-5 text-gray-400 dark:text-gray-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+                  </svg>
+                </div>
+                <input
+                  type="text"
+                  name="socialLinks.twitter"
+                  value={formData.socialLinks.twitter}
+                  onChange={handleChange}
+                  placeholder="Twitter username"
+                  className="w-full p-2.5 pl-10 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary-light focus:border-transparent"
+                />
+              </div>
             </div>
             
-            <div className="flex items-center p-3 border border-gray-200 dark:border-gray-700 rounded-lg mb-3 bg-blue-50 dark:bg-blue-900/20 border-blue-100 dark:border-blue-800">
-              <div className="h-10 w-10 rounded-full bg-blue-100 dark:bg-blue-800 flex items-center justify-center text-blue-500 dark:text-blue-300 mr-3">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <div className="flex-1">
-                <div className="font-medium text-gray-800 dark:text-white">{formData.email}</div>
-                <div className="text-xs text-gray-500 dark:text-gray-400">Verified 1 month ago</div>
+            <div className="col-span-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Facebook</label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <svg className="w-5 h-5 text-gray-400 dark:text-gray-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path fillRule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <input
+                  type="text"
+                  name="socialLinks.facebook"
+                  value={formData.socialLinks.facebook}
+                  onChange={handleChange}
+                  placeholder="Facebook username"
+                  className="w-full p-2.5 pl-10 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary-light focus:border-transparent"
+                />
               </div>
             </div>
             
-            <button 
-              type="button" 
-              className="mt-3 px-5 py-2.5 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-lg font-medium text-sm hover:bg-blue-100 dark:hover:bg-blue-800/30 transition-colors flex items-center gap-2"
+            <div className="col-span-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">LinkedIn</label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <svg className="w-5 h-5 text-gray-400 dark:text-gray-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                  </svg>
+                </div>
+                <input
+                  type="text"
+                  name="socialLinks.linkedin"
+                  value={formData.socialLinks.linkedin}
+                  onChange={handleChange}
+                  placeholder="LinkedIn username"
+                  className="w-full p-2.5 pl-10 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary-light focus:border-transparent"
+                />
+              </div>
+            </div>
+            
+            <div className="col-span-1">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">GitHub</label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <svg className="w-5 h-5 text-gray-400 dark:text-gray-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <input
+                  type="text"
+                  name="socialLinks.github"
+                  value={formData.socialLinks.github}
+                  onChange={handleChange}
+                  placeholder="GitHub username"
+                  className="w-full p-2.5 pl-10 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary dark:focus:ring-primary-light focus:border-transparent"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div className="pt-6 border-t border-gray-100 dark:border-gray-700">
+          <div className="flex flex-col sm:flex-row sm:justify-between gap-3">
+            <button
+              type="submit"
+              className="px-6 py-2.5 bg-primary dark:bg-primary-light text-white rounded-lg font-medium hover:bg-primary-dark dark:hover:bg-primary transition-colors flex items-center justify-center gap-2"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clipRule="evenodd" />
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
               </svg>
-              Add Email Address
+              Save Changes
+            </button>
+            <button
+              type="button"
+              className="px-6 py-2.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+            >
+              Cancel
             </button>
           </div>
-          
-          <div className="mt-8 pt-6 border-t border-gray-100 dark:border-gray-700">
-            <div className="flex flex-col sm:flex-row sm:justify-between gap-3">
-              <button
-                type="submit"
-                className="px-6 py-2.5 bg-primary dark:bg-primary-light text-white rounded-lg font-medium hover:bg-primary-dark dark:hover:bg-primary transition-colors flex items-center justify-center gap-2"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-                Save Changes
-              </button>
-              <button
-                type="button"
-                className="px-6 py-2.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   );
 };

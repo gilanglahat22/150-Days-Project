@@ -68,18 +68,23 @@ const HomePage: React.FC = () => {
     <Layout pageTitle="Dashboard">
       <Header username="Delista" />
       
-      <div className="mb-4">
-        <h1 className="text-2xl font-bold text-gray-800 dark:text-white">Dashboard</h1>
-        <p className="text-gray-500 dark:text-gray-400 text-sm mt-1">Track your daily activity and progress</p>
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold text-gray-800 dark:text-white">Dashboard</h1>
+        <p className="text-gray-500 dark:text-gray-400 text-sm mt-2">Track your daily activity and progress</p>
       </div>
       
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
         <div className="lg:col-span-2">
           <WelcomeCard username="Delista" temperature="+25°C" weather="Fuzzy cloudy weather" />
           
-          <h2 className="text-xl font-semibold my-4 text-gray-800 dark:text-white">Scarlett's Home</h2>
+          <div className="flex items-center justify-between mb-5">
+            <h2 className="text-xl font-bold text-gray-800 dark:text-white">Scarlett's Home</h2>
+            <div className="text-xs px-3 py-1.5 bg-primary/10 dark:bg-primary-dark/20 text-primary dark:text-primary-light rounded-full font-medium">
+              Today's Overview
+            </div>
+          </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mb-8">
             <StatCard 
               title="Steps" 
               value="2,500" 
@@ -119,16 +124,16 @@ const HomePage: React.FC = () => {
             />
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-8">
             <div className="md:col-span-1">
               <ActivityList activities={userActivities} />
             </div>
             
             <div className="md:col-span-2">
-              <div className="bg-gray-800 dark:bg-gray-800 p-4 rounded-xl shadow-sm">
-                <div className="flex justify-between items-center mb-4">
-                  <h3 className="font-semibold text-white">Progress</h3>
-                  <select className="text-xs text-gray-300 border border-gray-700 rounded-md px-2 py-1 bg-gray-700">
+              <div className="bg-gradient-to-br from-gray-800 to-gray-900 dark:from-gray-800 dark:to-gray-900 p-5 rounded-2xl shadow-lg">
+                <div className="flex justify-between items-center mb-5">
+                  <h3 className="font-semibold text-white text-lg">Progress</h3>
+                  <select className="text-xs text-gray-300 border border-gray-700 rounded-lg px-3 py-1.5 bg-gray-700/50 outline-none focus:ring-1 focus:ring-gray-600">
                     <option>Weekly</option>
                     <option>Monthly</option>
                   </select>
@@ -136,10 +141,10 @@ const HomePage: React.FC = () => {
                 
                 <ProgressChart activities={activities} totalHours={40} />
                 
-                <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {activities.map((activity, idx) => (
-                    <div key={idx} className="flex items-center">
-                      <div className="w-3 h-3 rounded-full mr-2" style={{ backgroundColor: activity.color }}></div>
+                    <div key={idx} className="flex items-center p-2 hover:bg-white/5 rounded-lg transition-colors">
+                      <div className="w-3 h-3 rounded-full mr-3" style={{ backgroundColor: activity.color }}></div>
                       <span className="text-sm text-gray-300">{activity.name}</span>
                       <span className="ml-auto text-sm font-medium text-gray-300">{activity.hours} hrs</span>
                     </div>
@@ -151,9 +156,11 @@ const HomePage: React.FC = () => {
         </div>
         
         <div className="lg:col-span-1">
-          <MembersList members={members} />
-          <div className="mt-6">
-            <ActivityChart data={chartData} labels={chartLabels} percentage={73} />
+          <div className="sticky top-0 pt-5">
+            <MembersList members={members} />
+            <div className="mt-8">
+              <ActivityChart data={chartData} labels={chartLabels} percentage={73} />
+            </div>
           </div>
         </div>
       </div>

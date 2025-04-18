@@ -12,19 +12,19 @@ const Layout: React.FC<LayoutProps> = ({ children, pageTitle }) => {
   const { isDarkMode } = useTheme();
 
   return (
-    <div className={`flex flex-col md:flex-row h-screen bg-gray-100 dark:bg-gray-900 overflow-hidden transition-colors duration-200 ${isDarkMode ? 'dark' : ''}`}>
+    <div className={`flex flex-col md:flex-row h-screen bg-gray-50 dark:bg-gray-900 overflow-hidden transition-all duration-300 ${isDarkMode ? 'dark' : ''}`}>
       {/* Mobile menu button */}
-      <div className="md:hidden p-4 flex items-center">
+      <div className="md:hidden p-4 flex items-center justify-between shadow-sm bg-white dark:bg-gray-800">
         <button 
           onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="text-primary dark:text-primary-light focus:outline-none"
+          className="text-primary dark:text-primary-light focus:outline-none hover:opacity-80 transition-opacity"
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
         {pageTitle && (
-          <h1 className="text-xl font-semibold text-gray-800 dark:text-white ml-4">{pageTitle}</h1>
+          <h1 className="text-xl font-semibold text-gray-800 dark:text-white">{pageTitle}</h1>
         )}
       </div>
 
@@ -41,11 +41,11 @@ const Layout: React.FC<LayoutProps> = ({ children, pageTitle }) => {
         <Sidebar />
       </div>
 
-      <div className="flex-1 overflow-auto p-4 md:p-6">
+      <div className="flex-1 overflow-auto p-4 md:p-8">
         {pageTitle && (
-          <h1 className="hidden md:block text-xl font-semibold text-gray-800 dark:text-white mb-6">{pageTitle}</h1>
+          <h1 className="hidden md:block text-2xl font-bold text-gray-800 dark:text-white mb-6">{pageTitle}</h1>
         )}
-        <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-sm p-4 md:p-6 text-gray-800 dark:text-gray-200 transition-colors duration-200">
+        <div className="bg-white dark:bg-gray-800 rounded-3xl shadow-lg p-5 md:p-8 text-gray-800 dark:text-gray-200 transition-all duration-300">
           {children}
         </div>
       </div>
